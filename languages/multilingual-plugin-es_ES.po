@@ -1,0 +1,35 @@
+# Copyright (C) 2025 Your Name
+# This file is distributed under the same license as the My Simple Plugin plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: My Simple Plugin 1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/my-simple-plugin\n"
+"POT-Creation-Date: 2025-06-03T06:40:49+02:00\n"
+"PO-Revision-Date: 2025-06-03 10:46+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.6\n"
+"X-Domain: my-simple-plugin\n"
+
+#. Plugin Name of the plugin
+#: my-simple-plugin.php
+msgid "My Simple Plugin"
+msgstr "Mi complemento simple"
+
+#. Description of the plugin
+#: my-simple-plugin.php
+msgid "A simple plugin with multilingual support."
+msgstr "Un complemento sencillo con soporte multilingüe"
+
+#. Author of the plugin
+#: my-simple-plugin.php
+msgid "Your Name"
+msgstr "Su nombre"
+
+#: my-simple-plugin.php:19
+msgid "Hello, world!"
+msgstr "Hola Mundo!"
