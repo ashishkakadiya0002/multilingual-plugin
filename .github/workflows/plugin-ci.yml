@@ -1,0 +1,32 @@
+name: Deploy Plugin via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Lint PHP Files
+        run: |
+          find . -type f -name "*.php" -print0 | xargs -0 -n1 php -l
+
+      - name: Deploy via FTP
+        uses: sebastianpopp/ftp-action@v2.0.0
+        with:
+          host: ${{ secrets.FTP_HOST }}
+          user: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          localDir: '.'
+          remoteDir: '/htdocs/wp-content/plugins/multilingual-plugin'
