@@ -73,7 +73,7 @@ jobs:
           user: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
           localDir: '.'
-          remoteDir: '/htdocs/wp-content/plugins/multilingual-plugin'
+          remoteDir: '/htdocs/wp-content/plugins/multilingual-plugin'```
 
 #### 2. Add FTP Credentials as GitHub Secrets
 
