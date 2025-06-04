@@ -31,23 +31,51 @@ This plugin supports multiple languages through WordPress' built-in localization
 
 (10) wp i18n make-pot ./ ./languages/my-simple-plugin.pot --slug=my-simple-plugin (replace your slug)
 
-## 🔄 CI/CD Integration using GitHub Actions and FTP
+## CI/CD Setup for Deploying Plugin via FTP
 
-This project is configured for automatic deployment using GitHub Actions and FTP. The deployment workflow is defined in the `.github/workflows/plugin-ci.yml` file.
+### Step 1: Create the Workflow File
 
-### 📂 Workflow Overview
+1. Go to your GitHub repository.
+2. Click on the Actions tab at the top.
+3. If there is no workflow yet, GitHub will give you an option to "Set up a workflow yourself" or "New workflow" — click on that.
+4. Create a new file named .github/workflows/plugin-deploy.yml.
+5. Paste the following code into it:
 
-The GitHub Actions workflow automatically triggers on push to the main branch (or any other specified branch) and deploys the project files to your server via FTP.
+```yaml
+name: Deploy Plugin via FTP
 
-### ⚙️ Setup Instructions
+on:
+  push:
+    branches:
+      - main
 
-Follow these steps to configure the CI/CD deployment:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-#### 1. Create the Workflow File
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-Ensure the file `.github/workflows/plugin-ci.yml` exists in your repository. This file contains the logic for building and deploying the code via FTP.
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
 
-#### 2. Define FTP Secrets in GitHub
+      - name: Lint PHP Files
+        run: |
+          find . -type f -name "*.php" -print0 | xargs -0 -n1 php -l
+
+      - name: Deploy via FTP
+        uses: sebastianpopp/ftp-action@v2.0.0
+        with:
+          host: ${{ secrets.FTP_HOST }}
+          user: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          localDir: '.'
+          remoteDir: '/htdocs/wp-content/plugins/multilingual-plugin'
+
+#### 2. Add FTP Credentials as GitHub Secrets
 
 To securely store your FTP credentials, you need to define the following secrets in your GitHub repository:
 
@@ -71,9 +99,3 @@ Once everything is set up:
 - On every code push (depending on the workflow trigger), GitHub Actions will run the CI/CD pipeline.
 - The code is automatically deployed to your FTP server using the credentials defined in the repository secrets.
 
-### ✅ Example
-
-```yaml
-      host: ${{ secrets.FTP_HOST }}
-      user: ${{ secrets.FTP_USER }}
-      password: ${{ secrets.FTP_PASS }}
