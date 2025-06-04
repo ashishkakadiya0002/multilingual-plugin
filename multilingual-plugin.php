@@ -17,7 +17,7 @@ add_action( 'plugins_loaded', 'mltp_load_textdomain' );
 // Example translated string
 function mltp_hello_world() {
     if(!is_admin()){
-        echo '<p>' . esc_html__( 'Hello, world!', 'multilingual-plugin' ) . '</p>';
+        echo '<p>' . esc_html__( 'Hello, world! 1', 'multilingual-plugin' ) . '</p>';
         die;
     }
 }
